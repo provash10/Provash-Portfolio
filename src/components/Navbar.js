@@ -52,6 +52,19 @@ const Navbar = () => {
                   {item.charAt(0).toUpperCase() + item.slice(1)}
                 </button>
               ))}
+              
+              {/* Download Resume Button */}
+              <button
+                onClick={() => window.open('/resume.html', '_blank')}
+                className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 flex items-center ${
+                  scrolled 
+                    ? 'bg-primary text-white hover:bg-blue-700 hover:scale-105' 
+                    : 'bg-white/20 text-white hover:bg-white/30 hover:scale-105'
+                }`}
+              >
+                <i className="fas fa-download mr-2"></i>
+                Resume
+              </button>
             </div>
           </div>
 
@@ -88,6 +101,18 @@ const Navbar = () => {
                 {item.charAt(0).toUpperCase() + item.slice(1)}
               </button>
             ))}
+            
+            {/* Mobile Download Resume Button */}
+            <button
+              onClick={() => {
+                window.open('/resume.html', '_blank');
+                setIsOpen(false);
+              }}
+              className="block px-3 py-2 rounded-md text-base font-medium bg-primary text-white hover:bg-blue-700 w-full text-left"
+            >
+              <i className="fas fa-download mr-2"></i>
+              Download Resume
+            </button>
           </div>
         </div>
       )}

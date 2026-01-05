@@ -286,6 +286,13 @@ const Contact = () => {
                 <i className="fab fa-whatsapp mr-2"></i>
                 WhatsApp
               </a>
+              <button
+                onClick={() => window.open('/resume.html', '_blank')}
+                className="bg-yellow-500 text-white px-8 py-3 rounded-full font-semibold hover:bg-yellow-600 transition-colors duration-300 inline-flex items-center justify-center"
+              >
+                <i className="fas fa-download mr-2"></i>
+                Download Resume
+              </button>
             </div>
           </div>
         </div>

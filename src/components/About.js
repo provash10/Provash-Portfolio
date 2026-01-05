@@ -109,9 +109,7 @@ const About = () => {
                   {/* Action Buttons */}
                   <div className="space-y-3 mb-6">
                     <button
-                      onClick={() => {
-                        alert('Resume download functionality will be implemented when your resume is ready!');
-                      }}
+                      onClick={() => window.open('/resume.html', '_blank')}
                       className="w-full bg-gradient-to-r from-primary to-accent text-white py-3 rounded-2xl font-semibold hover:shadow-xl hover:scale-105 transition-all duration-300 flex items-center justify-center"
                     >
                       <i className="fas fa-download mr-2"></i>
