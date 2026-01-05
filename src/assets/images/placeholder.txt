@@ -1,0 +1,2 @@
+This folder is for storing images and other assets.
+You can add your profile photo and project images here.
