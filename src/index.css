@@ -94,6 +94,31 @@ html {
   }
 }
 
+@keyframes scaleX {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes ping {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
 /* Animation Classes */
 .animate-slide-in-left {
   animation: slideInLeft 1s ease-out;
@@ -117,6 +142,19 @@ html {
 
 .animate-pulse-slow {
   animation: pulseSlow 4s ease-in-out infinite;
+}
+
+.animate-scale-x {
+  animation: scaleX 1.5s ease-out;
+  transform-origin: left;
+}
+
+.animate-ping {
+  animation: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite;
 }
 
 /* Animation Delays */
@@ -145,13 +183,33 @@ html {
   animation-fill-mode: both;
 }
 
+.animation-delay-800 {
+  animation-delay: 0.8s;
+  animation-fill-mode: both;
+}
+
 .animation-delay-1000 {
   animation-delay: 1s;
   animation-fill-mode: both;
 }
 
+.animation-delay-1200 {
+  animation-delay: 1.2s;
+  animation-fill-mode: both;
+}
+
+.animation-delay-1400 {
+  animation-delay: 1.4s;
+  animation-fill-mode: both;
+}
+
 .animation-delay-1500 {
   animation-delay: 1.5s;
+  animation-fill-mode: both;
+}
+
+.animation-delay-1600 {
+  animation-delay: 1.6s;
   animation-fill-mode: both;
 }
 

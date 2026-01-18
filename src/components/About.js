@@ -1,47 +1,113 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ProfileImage from './ProfileImage';
 import profileImg from '../assets/images/profileImg (2).png';
 
 const About = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const [activeCard, setActiveCard] = useState(0);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    const aboutSection = document.getElementById('about');
+    if (aboutSection) {
+      observer.observe(aboutSection);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveCard((prev) => (prev + 1) % 3);
+    }, 4000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const skills = [
+    { name: 'React', level: 90, color: 'from-blue-400 to-blue-600', icon: 'fab fa-react' },
+    { name: 'Node.js', level: 85, color: 'from-green-400 to-green-600', icon: 'fab fa-node-js' },
+    { name: 'JavaScript', level: 88, color: 'from-yellow-400 to-yellow-600', icon: 'fab fa-js-square' },
+    { name: 'MongoDB', level: 80, color: 'from-green-500 to-emerald-600', icon: 'fas fa-database' }
+  ];
+
+  const achievements = [
+    { number: '15+', label: 'Projects', icon: 'fas fa-code', delay: '0s' },
+    { number: '8+', label: 'Technologies', icon: 'fas fa-tools', delay: '0.2s' },
+    { number: '3+', label: 'Years Exp', icon: 'fas fa-calendar', delay: '0.4s' }
+  ];
   return (
     <section id="about" className="py-12 bg-gradient-to-br from-slate-50 via-blue-50/30 to-purple-50/30 relative overflow-hidden">
-      {/* Background Decorative Elements */}
+      {/* Enhanced Background Decorative Elements */}
       <div className="absolute inset-0 opacity-10">
         <div className="absolute top-20 left-10 w-96 h-96 bg-primary rounded-full blur-3xl animate-pulse animation-delay-2000"></div>
         <div className="absolute bottom-20 right-10 w-80 h-80 bg-accent rounded-full blur-3xl animate-pulse animation-delay-4000"></div>
         <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-success rounded-full blur-3xl animate-pulse animation-delay-6000"></div>
       </div>
 
+      {/* Floating Particles */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        {[...Array(20)].map((_, i) => (
+          <div
+            key={i}
+            className={`absolute w-2 h-2 bg-primary/20 rounded-full animate-float`}
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 5}s`,
+              animationDuration: `${3 + Math.random() * 4}s`
+            }}
+          />
+        ))}
+      </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        {/* Section Header */}
-        <div className="text-center mb-12 animate-fade-in-up">
-          <h2 className="text-4xl font-bold text-gray-900 mb-2">
-            About <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Me</span>
-          </h2>
-          <div className="w-32 h-1 bg-gradient-to-r from-primary to-accent mx-auto mb-2"></div>
-          <p className="text-md text-gray-600 max-w-3xl mx-auto leading-relaxed">
-            "Crafting digital experiences with passion, precision, and purpose"
+        {/* Enhanced Section Header */}
+        <div className={`text-center mb-12 transition-all duration-1000 ${isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-10'}`}>
+          <div className="relative inline-block">
+            <h2 className="text-5xl font-bold text-gray-900 mb-4 relative">
+              About{' '}
+              <span className="bg-gradient-to-r from-primary via-accent to-purple-600 bg-clip-text text-transparent animate-pulse">
+                Me
+              </span>
+              {/* Animated underline */}
+              <div className="absolute -bottom-2 left-0 w-full h-1 bg-gradient-to-r from-primary to-accent transform scale-x-0 animate-scale-x animation-delay-500"></div>
+            </h2>
+          </div>
+          <div className="w-32 h-1 bg-gradient-to-r from-primary to-accent mx-auto mb-4 animate-pulse"></div>
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto leading-relaxed animate-fade-in-up animation-delay-300">
+            "Crafting digital experiences with{' '}
+            <span className="text-primary font-semibold animate-pulse">passion</span>,{' '}
+            <span className="text-accent font-semibold animate-pulse animation-delay-200">precision</span>, and{' '}
+            <span className="text-success font-semibold animate-pulse animation-delay-400">purpose</span>"
           </p>
         </div>
 
         {/* Main Content */}
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-12 mb-12">
-          {/* Left Column - Profile Showcase */}
-          <div className="lg:col-span-2 animate-slide-in-left">
+          {/* Left Column - Enhanced Profile Showcase */}
+          <div className={`lg:col-span-2 transition-all duration-1000 ${isVisible ? 'animate-slide-in-left' : 'opacity-0 -translate-x-10'}`}>
             <div className="sticky top-8">
-              {/* Profile Card */}
-              <div className="bg-white rounded-3xl shadow-2xl p-8 relative overflow-hidden">
-                {/* Decorative Background Elements */}
-                <div className="absolute -top-20 -right-20 w-40 h-40 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full blur-3xl"></div>
-                <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-gradient-to-tr from-purple-500/20 to-pink-500/20 rounded-full blur-2xl"></div>
+              {/* Enhanced Profile Card */}
+              <div className="bg-white rounded-3xl shadow-2xl p-8 relative overflow-hidden transform hover:scale-105 transition-all duration-500 hover:shadow-3xl">
+                {/* Enhanced Decorative Background Elements */}
+                <div className="absolute -top-20 -right-20 w-40 h-40 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full blur-3xl animate-pulse"></div>
+                <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-gradient-to-tr from-purple-500/20 to-pink-500/20 rounded-full blur-2xl animate-pulse animation-delay-1000"></div>
                 
-                {/* Profile Image Section */}
-                <div className="relative mb-8">
+                {/* Profile Image Section - Keep unchanged but add hover effects */}
+                <div className="relative mb-8 group">
                   <div className="relative mx-auto w-64 h-64">
-                    {/* Animated Border Ring */}
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary via-accent to-purple-500 animate-spin-slow p-1">
+                    {/* Enhanced Animated Border Ring */}
+                    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary via-accent to-purple-500 animate-spin-slow p-1 group-hover:animate-pulse">
                       <div className="w-full h-full rounded-full bg-white p-2">
-                        <div className="w-full h-full rounded-full overflow-hidden animate-float">
+                        <div className="w-full h-full rounded-full overflow-hidden animate-float group-hover:scale-110 transition-transform duration-500">
                           <ProfileImage 
                             src={profileImg}
                             alt="Provash Chandra Barman - Full Stack Developer"
@@ -51,203 +117,229 @@ const About = () => {
                       </div>
                     </div>
                     
-                    {/* Floating Tech Badges */}
-                    <div className="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg animate-bounce animation-delay-1000">
-                      <i className="fab fa-react text-white text-2xl"></i>
+                    {/* Enhanced Floating Tech Badges */}
+                    <div className="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg animate-bounce animation-delay-1000 hover:scale-125 transition-transform duration-300 cursor-pointer">
+                      <i className="fab fa-react text-white text-2xl animate-spin-slow"></i>
                     </div>
-                    <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center shadow-lg animate-bounce animation-delay-1500">
-                      <i className="fab fa-node-js text-white text-2xl"></i>
+                    <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center shadow-lg animate-bounce animation-delay-1500 hover:scale-125 transition-transform duration-300 cursor-pointer">
+                      <i className="fab fa-node-js text-white text-2xl animate-pulse"></i>
                     </div>
-                    <div className="absolute top-1/2 -right-6 w-12 h-12 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-xl flex items-center justify-center shadow-lg animate-bounce animation-delay-2000">
-                      <i className="fab fa-js-square text-white text-lg"></i>
+                    <div className="absolute top-1/2 -right-6 w-12 h-12 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-xl flex items-center justify-center shadow-lg animate-bounce animation-delay-2000 hover:scale-125 transition-transform duration-300 cursor-pointer">
+                      <i className="fab fa-js-square text-white text-lg animate-pulse animation-delay-500"></i>
                     </div>
                     
-                    {/* Status Indicator */}
-                    <div className="absolute top-4 right-4 flex items-center bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg">
-                      <div className="w-2 h-2 bg-white rounded-full mr-2 animate-pulse"></div>
-                      Available
+                    {/* Enhanced Status Indicator */}
+                    <div className="absolute top-4 right-4 flex items-center bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg animate-pulse hover:bg-green-600 transition-colors duration-300">
+                      <div className="w-2 h-2 bg-white rounded-full mr-2 animate-ping"></div>
+                      Available for Work
                     </div>
                   </div>
                 </div>
 
-                {/* Profile Info */}
+                {/* Enhanced Profile Info */}
                 <div className="text-center relative z-10">
-                  <h3 className="text-3xl font-bold text-gray-900 mb-2">Provash Chandra Barman</h3>
-                  <p className="text-xl text-primary font-semibold mb-3">Full Stack Developer</p>
-                  <p className="text-gray-600 mb-6 flex items-center justify-center">
-                    <i className="fas fa-map-marker-alt mr-2 text-red-500"></i>
+                  <h3 className="text-3xl font-bold text-gray-900 mb-2 animate-fade-in-up">
+                    Provash Chandra Barman
+                  </h3>
+                  <p className="text-xl text-primary font-semibold mb-3 animate-fade-in-up animation-delay-200">
+                    Full Stack Developer
+                  </p>
+                  <p className="text-gray-600 mb-6 flex items-center justify-center animate-fade-in-up animation-delay-300">
+                    <i className="fas fa-map-marker-alt mr-2 text-red-500 animate-pulse"></i>
                     Dhaka, Bangladesh
                   </p>
 
-                  {/* Achievement Stats */}
+                  {/* Enhanced Achievement Stats with Animation */}
                   <div className="grid grid-cols-3 gap-4 mb-8">
-                    <div className="bg-gradient-to-br from-primary/10 to-primary/20 rounded-2xl p-4 text-center">
-                      <div className="text-2xl font-bold text-primary mb-1">10+</div>
-                      <div className="text-xs text-primary/80 font-medium">Projects</div>
-                    </div>
-                    <div className="bg-gradient-to-br from-success/10 to-success/20 rounded-2xl p-4 text-center">
-                      <div className="text-2xl font-bold text-success mb-1">5+</div>
-                      <div className="text-xs text-success/80 font-medium">Technologies</div>
-                    </div>
-                    <div className="bg-gradient-to-br from-accent/10 to-accent/20 rounded-2xl p-4 text-center">
-                      <div className="text-2xl font-bold text-accent mb-1">2+</div>
-                      <div className="text-xs text-accent/80 font-medium">Years Exp</div>
-                    </div>
+                    {achievements.map((achievement, index) => (
+                      <div 
+                        key={index}
+                        className={`bg-gradient-to-br from-primary/10 to-primary/20 rounded-2xl p-4 text-center transform hover:scale-110 transition-all duration-300 animate-fade-in-up cursor-pointer group`}
+                        style={{ animationDelay: achievement.delay }}
+                      >
+                        <div className="text-2xl font-bold text-primary mb-1 group-hover:animate-pulse">
+                          {achievement.number}
+                        </div>
+                        <div className="text-xs text-primary/80 font-medium flex items-center justify-center">
+                          <i className={`${achievement.icon} mr-1 group-hover:animate-bounce`}></i>
+                          {achievement.label}
+                        </div>
+                      </div>
+                    ))}
                   </div>
 
-                  {/* Quick Skills */}
+                  {/* Enhanced Quick Skills with Animation */}
                   <div className="mb-8">
-                    <h4 className="text-sm font-semibold text-gray-700 mb-3">Specializes In</h4>
+                    <h4 className="text-sm font-semibold text-gray-700 mb-3 animate-fade-in-up animation-delay-400">
+                      Specializes In
+                    </h4>
                     <div className="flex flex-wrap gap-2 justify-center">
-                      <span className="px-3 py-1 bg-gradient-to-r from-primary to-accent text-white text-xs rounded-full font-medium">MERN Stack</span>
-                      <span className="px-3 py-1 bg-gradient-to-r from-success to-emerald-500 text-white text-xs rounded-full font-medium">Full Stack</span>
-                      <span className="px-3 py-1 bg-gradient-to-r from-accent to-purple-600 text-white text-xs rounded-full font-medium">Web Apps</span>
-                      <span className="px-3 py-1 bg-gradient-to-r from-warning to-orange-500 text-white text-xs rounded-full font-medium">API Design</span>
+                      {['MERN Stack', 'Full Stack', 'Web Apps', 'API Design'].map((skill, index) => (
+                        <span 
+                          key={skill}
+                          className={`px-3 py-1 bg-gradient-to-r text-white text-xs rounded-full font-medium transform hover:scale-110 transition-all duration-300 animate-fade-in-up cursor-pointer ${
+                            index === 0 ? 'from-primary to-accent' :
+                            index === 1 ? 'from-success to-emerald-500' :
+                            index === 2 ? 'from-accent to-purple-600' :
+                            'from-warning to-orange-500'
+                          }`}
+                          style={{ animationDelay: `${0.5 + index * 0.1}s` }}
+                        >
+                          {skill}
+                        </span>
+                      ))}
                     </div>
                   </div>
 
-                  {/* Action Buttons */}
+                  {/* Enhanced Action Buttons */}
                   <div className="space-y-3 mb-6">
                     <button
                       onClick={() => window.open('/resume.html', '_blank')}
-                      className="w-full bg-gradient-to-r from-primary to-accent text-white py-3 rounded-2xl font-semibold hover:shadow-xl hover:scale-105 transition-all duration-300 flex items-center justify-center"
+                      className="w-full bg-gradient-to-r from-primary to-accent text-white py-3 rounded-2xl font-semibold hover:shadow-xl hover:scale-105 transition-all duration-300 flex items-center justify-center animate-fade-in-up animation-delay-600 group"
                     >
-                      <i className="fas fa-download mr-2"></i>
+                      <i className="fas fa-download mr-2 group-hover:animate-bounce"></i>
                       Download Resume
                     </button>
                     <button
                       onClick={() => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })}
-                      className="w-full border-2 border-primary text-primary py-3 rounded-2xl font-semibold hover:bg-primary hover:text-white hover:scale-105 transition-all duration-300"
+                      className="w-full border-2 border-primary text-primary py-3 rounded-2xl font-semibold hover:bg-primary hover:text-white hover:scale-105 transition-all duration-300 animate-fade-in-up animation-delay-700 group"
                     >
-                      <i className="fas fa-envelope mr-2"></i>
+                      <i className="fas fa-envelope mr-2 group-hover:animate-bounce"></i>
                       Get In Touch
                     </button>
                   </div>
 
-                  {/* Social Links */}
+                  {/* Enhanced Social Links */}
                   <div className="flex justify-center space-x-3">
-                    <a
-                      href="https://github.com/provash10"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-12 h-12 bg-gradient-to-br from-secondary to-dark rounded-2xl flex items-center justify-center text-white hover:scale-110 hover:shadow-lg transition-all duration-300"
-                      title="GitHub"
-                    >
-                      <i className="fab fa-github text-lg"></i>
-                    </a>
-                    <a
-                      href="https://www.linkedin.com/in/provashchandrabarman/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-12 h-12 bg-gradient-to-br from-primary to-blue-700 rounded-2xl flex items-center justify-center text-white hover:scale-110 hover:shadow-lg transition-all duration-300"
-                      title="LinkedIn"
-                    >
-                      <i className="fab fa-linkedin text-lg"></i>
-                    </a>
-                    <a
-                      href="mailto:provash20cb@gmail.com"
-                      className="w-12 h-12 bg-gradient-to-br from-danger to-red-600 rounded-2xl flex items-center justify-center text-white hover:scale-110 hover:shadow-lg transition-all duration-300"
-                      title="Email"
-                    >
-                      <i className="fas fa-envelope text-lg"></i>
-                    </a>
-                    <a
-                      href="https://wa.me/8801710490345"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-12 h-12 bg-gradient-to-br from-success to-green-600 rounded-2xl flex items-center justify-center text-white hover:scale-110 hover:shadow-lg transition-all duration-300"
-                      title="WhatsApp"
-                    >
-                      <i className="fab fa-whatsapp text-lg"></i>
-                    </a>
+                    {[
+                      { href: 'https://github.com/provash10', icon: 'fab fa-github', color: 'from-secondary to-dark', title: 'GitHub' },
+                      { href: 'https://www.linkedin.com/in/provashchandrabarman/', icon: 'fab fa-linkedin', color: 'from-primary to-blue-700', title: 'LinkedIn' },
+                      { href: 'mailto:provash20cb@gmail.com', icon: 'fas fa-envelope', color: 'from-danger to-red-600', title: 'Email' },
+                      { href: 'https://wa.me/8801710490345', icon: 'fab fa-whatsapp', color: 'from-success to-green-600', title: 'WhatsApp' }
+                    ].map((social, index) => (
+                      <a
+                        key={social.title}
+                        href={social.href}
+                        target={social.href.startsWith('mailto') ? '_self' : '_blank'}
+                        rel="noopener noreferrer"
+                        className={`w-12 h-12 bg-gradient-to-br ${social.color} rounded-2xl flex items-center justify-center text-white hover:scale-110 hover:shadow-lg transition-all duration-300 animate-fade-in-up animation-delay-${800 + index * 100} group`}
+                        title={social.title}
+                      >
+                        <i className={`${social.icon} text-lg group-hover:animate-pulse`}></i>
+                      </a>
+                    ))}
                   </div>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Right Column - Content Cards */}
-          <div className="lg:col-span-3 space-y-6 animate-slide-in-right">
-            {/* Professional Summary */}
-            <div className="bg-white rounded-3xl shadow-xl p-8 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-primary/5 to-accent/5 rounded-full -translate-y-12 translate-x-12"></div>
-              <div className="flex items-center mb-6">
-                <div className="w-12 h-12 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center mr-4">
-                  <i className="fas fa-rocket text-white text-lg"></i>
+          {/* Right Column - Enhanced Content Cards */}
+          <div className={`lg:col-span-3 space-y-6 transition-all duration-1000 ${isVisible ? 'animate-slide-in-right' : 'opacity-0 translate-x-10'}`}>
+            {/* Enhanced Professional Summary */}
+            <div className={`bg-white rounded-3xl shadow-xl p-8 relative overflow-hidden transform hover:scale-105 transition-all duration-500 hover:shadow-2xl ${activeCard === 0 ? 'ring-4 ring-primary/20' : ''}`}>
+              <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-primary/5 to-accent/5 rounded-full -translate-y-12 translate-x-12 animate-pulse"></div>
+              <div className="flex items-center mb-6 animate-fade-in-up">
+                <div className="w-12 h-12 bg-gradient-to-br from-primary to-accent rounded-2xl flex items-center justify-center mr-4 animate-bounce">
+                  <i className="fas fa-rocket text-white text-lg animate-pulse"></i>
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900">Professional Journey</h3>
               </div>
-              <p className="text-lg text-gray-700 leading-relaxed mb-6">
-                I am <strong>Provash Chandra Barman</strong>, a dedicated Full Stack Web Developer 
-                specializing in the <strong>MERN Stack</strong>. With a passion for creating 
+              <p className="text-lg text-gray-700 leading-relaxed mb-6 animate-fade-in-up animation-delay-200">
+                I am <strong className="text-primary animate-pulse">Provash Chandra Barman</strong>, a dedicated Full Stack Web Developer 
+                specializing in the <strong className="text-accent animate-pulse animation-delay-300">MERN Stack</strong>. With a passion for creating 
                 scalable, user-centric applications, I transform complex business requirements 
                 into elegant digital solutions that drive results.
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="flex items-center p-4 bg-gray-50 rounded-2xl">
-                  <i className="fas fa-code text-primary text-xl mr-3"></i>
+                <div className="flex items-center p-4 bg-gray-50 rounded-2xl hover:bg-primary/10 transition-all duration-300 transform hover:scale-105 animate-fade-in-up animation-delay-400 group">
+                  <i className="fas fa-code text-primary text-xl mr-3 group-hover:animate-bounce"></i>
                   <span className="font-medium text-gray-800">Clean Code Advocate</span>
                 </div>
-                <div className="flex items-center p-4 bg-gray-50 rounded-2xl">
-                  <i className="fas fa-lightbulb text-yellow-500 text-xl mr-3"></i>
+                <div className="flex items-center p-4 bg-gray-50 rounded-2xl hover:bg-yellow-50 transition-all duration-300 transform hover:scale-105 animate-fade-in-up animation-delay-500 group">
+                  <i className="fas fa-lightbulb text-yellow-500 text-xl mr-3 group-hover:animate-bounce"></i>
                   <span className="font-medium text-gray-800">Problem Solver</span>
                 </div>
               </div>
             </div>
 
-            {/* Technical Expertise */}
-            <div className="bg-white rounded-3xl shadow-xl p-8 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-green-500/5 to-blue-500/5 rounded-full -translate-y-12 translate-x-12"></div>
-              <div className="flex items-center mb-6">
-                <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-blue-500 rounded-2xl flex items-center justify-center mr-4">
-                  <i className="fas fa-cogs text-white text-lg"></i>
+            {/* Enhanced Technical Expertise with Skills Progress */}
+            <div className={`bg-white rounded-3xl shadow-xl p-8 relative overflow-hidden transform hover:scale-105 transition-all duration-500 hover:shadow-2xl ${activeCard === 1 ? 'ring-4 ring-green-200' : ''}`}>
+              <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-green-500/5 to-blue-500/5 rounded-full -translate-y-12 translate-x-12 animate-pulse animation-delay-1000"></div>
+              <div className="flex items-center mb-6 animate-fade-in-up animation-delay-200">
+                <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-blue-500 rounded-2xl flex items-center justify-center mr-4 animate-bounce animation-delay-500">
+                  <i className="fas fa-cogs text-white text-lg animate-spin-slow"></i>
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900">Technical Expertise</h3>
               </div>
-              <p className="text-gray-700 leading-relaxed mb-6">
+              <p className="text-gray-700 leading-relaxed mb-6 animate-fade-in-up animation-delay-400">
                 My technical journey encompasses modern web development practices, from crafting 
-                responsive frontends with React and Tailwind CSS to building robust backend 
-                systems with Node.js and Express. I excel in database design, API development, 
+                responsive frontends with <span className="text-blue-500 font-semibold animate-pulse">React</span> and <span className="text-cyan-500 font-semibold animate-pulse animation-delay-200">Tailwind CSS</span> to building robust backend 
+                systems with <span className="text-green-500 font-semibold animate-pulse animation-delay-400">Node.js</span> and <span className="text-gray-700 font-semibold animate-pulse animation-delay-600">Express</span>. I excel in database design, API development, 
                 and implementing secure authentication systems.
               </p>
+              
+              {/* Animated Skills Progress Bars */}
+              <div className="space-y-4 mb-6">
+                {skills.map((skill, index) => (
+                  <div key={skill.name} className="animate-fade-in-up" style={{ animationDelay: `${0.6 + index * 0.1}s` }}>
+                    <div className="flex justify-between items-center mb-2">
+                      <div className="flex items-center">
+                        <i className={`${skill.icon} text-lg mr-2 animate-pulse`} style={{ animationDelay: `${index * 0.2}s` }}></i>
+                        <span className="font-medium text-gray-800">{skill.name}</span>
+                      </div>
+                      <span className="text-sm text-gray-600 font-semibold">{skill.level}%</span>
+                    </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
+                      <div 
+                        className={`h-2 bg-gradient-to-r ${skill.color} rounded-full transition-all duration-2000 ease-out animate-scale-x`}
+                        style={{ 
+                          width: isVisible ? `${skill.level}%` : '0%',
+                          animationDelay: `${1 + index * 0.2}s`
+                        }}
+                      ></div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="text-center p-4 bg-blue-50 rounded-2xl">
-                  <i className="fab fa-react text-blue-500 text-2xl mb-2"></i>
-                  <div className="font-medium text-gray-800">Frontend</div>
-                </div>
-                <div className="text-center p-4 bg-green-50 rounded-2xl">
-                  <i className="fas fa-server text-green-500 text-2xl mb-2"></i>
-                  <div className="font-medium text-gray-800">Backend</div>
-                </div>
-                <div className="text-center p-4 bg-purple-50 rounded-2xl">
-                  <i className="fas fa-database text-purple-500 text-2xl mb-2"></i>
-                  <div className="font-medium text-gray-800">Database</div>
-                </div>
-                <div className="text-center p-4 bg-orange-50 rounded-2xl">
-                  <i className="fas fa-tools text-orange-500 text-2xl mb-2"></i>
-                  <div className="font-medium text-gray-800">DevTools</div>
-                </div>
+                {[
+                  { icon: 'fab fa-react', color: 'blue', label: 'Frontend' },
+                  { icon: 'fas fa-server', color: 'green', label: 'Backend' },
+                  { icon: 'fas fa-database', color: 'purple', label: 'Database' },
+                  { icon: 'fas fa-tools', color: 'orange', label: 'DevTools' }
+                ].map((item, index) => (
+                  <div 
+                    key={item.label}
+                    className={`text-center p-4 bg-${item.color}-50 rounded-2xl hover:bg-${item.color}-100 transition-all duration-300 transform hover:scale-110 animate-fade-in-up cursor-pointer group`}
+                    style={{ animationDelay: `${1.2 + index * 0.1}s` }}
+                  >
+                    <i className={`${item.icon} text-${item.color}-500 text-2xl mb-2 group-hover:animate-bounce`}></i>
+                    <div className="font-medium text-gray-800">{item.label}</div>
+                  </div>
+                ))}
               </div>
             </div>
 
-            {/* Vision & Goals */}
-            <div className="bg-white rounded-3xl shadow-xl p-8 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-purple-500/5 to-pink-500/5 rounded-full -translate-y-12 translate-x-12"></div>
-              <div className="flex items-center mb-6">
-                <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mr-4">
-                  <i className="fas fa-target text-white text-lg"></i>
+            {/* Enhanced Vision & Goals */}
+            <div className={`bg-white rounded-3xl shadow-xl p-8 relative overflow-hidden transform hover:scale-105 transition-all duration-500 hover:shadow-2xl ${activeCard === 2 ? 'ring-4 ring-purple-200' : ''}`}>
+              <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-purple-500/5 to-pink-500/5 rounded-full -translate-y-12 translate-x-12 animate-pulse animation-delay-2000"></div>
+              <div className="flex items-center mb-6 animate-fade-in-up animation-delay-300">
+                <div className="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mr-4 animate-bounce animation-delay-1000">
+                  <i className="fas fa-target text-white text-lg animate-pulse"></i>
                 </div>
                 <h3 className="text-2xl font-bold text-gray-900">Vision & Goals</h3>
               </div>
-              <p className="text-gray-700 leading-relaxed mb-6">
+              <p className="text-gray-700 leading-relaxed mb-6 animate-fade-in-up animation-delay-500">
                 My goal is to contribute to innovative projects that make a meaningful impact. 
-                I'm committed to continuous learning, staying current with emerging technologies, 
-                and delivering high-quality solutions that exceed expectations.
+                I'm committed to <span className="text-purple-500 font-semibold animate-pulse">continuous learning</span>, staying current with emerging technologies, 
+                and delivering <span className="text-pink-500 font-semibold animate-pulse animation-delay-300">high-quality solutions</span> that exceed expectations.
               </p>
-              <div className="bg-gradient-to-r from-primary/10 to-accent/10 rounded-2xl p-6">
+              <div className="bg-gradient-to-r from-primary/10 to-accent/10 rounded-2xl p-6 transform hover:scale-105 transition-all duration-300 animate-fade-in-up animation-delay-700">
                 <div className="flex items-center">
-                  <i className="fas fa-quote-left text-primary text-2xl mr-4"></i>
-                  <p className="text-lg font-medium text-gray-800 italic">
+                  <i className="fas fa-quote-left text-primary text-2xl mr-4 animate-pulse"></i>
+                  <p className="text-lg font-medium text-gray-800 italic animate-fade-in-up animation-delay-800">
                     "Passionate about learning, developing, and delivering excellence in every project."
                   </p>
                 </div>
@@ -256,47 +348,96 @@ const About = () => {
           </div>
         </div>
 
-        {/* Core Values Section */}
-        <div className="animate-fade-in-up animation-delay-800">
-          <div className="text-center mb-4">
-            <h3 className="text-3xl font-bold text-gray-900">Core Values</h3>
-            <p className="text-md text-gray-600 max-w-2xl mx-auto">
+        {/* Enhanced Core Values Section */}
+        <div className={`transition-all duration-1000 ${isVisible ? 'animate-fade-in-up animation-delay-800' : 'opacity-0 translate-y-10'}`}>
+          <div className="text-center mb-8">
+            <h3 className="text-4xl font-bold text-gray-900 mb-4 animate-fade-in-up">
+              Core <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Values</span>
+            </h3>
+            <div className="w-24 h-1 bg-gradient-to-r from-primary to-accent mx-auto mb-4 animate-pulse"></div>
+            <p className="text-lg text-gray-600 max-w-2xl mx-auto animate-fade-in-up animation-delay-200">
               The principles that guide my work and professional relationships
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div className="text-center group">
-              <div className="w-20 h-20 bg-gradient-to-br from-primary to-accent rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-all duration-300 animate-float">
-                <i className="fas fa-rocket text-white text-2xl"></i>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              {
+                icon: 'fas fa-rocket',
+                title: 'Innovation',
+                description: 'Constantly exploring new technologies and methodologies to deliver cutting-edge solutions that push boundaries and create value.',
+                gradient: 'from-primary to-accent',
+                delay: '0s'
+              },
+              {
+                icon: 'fas fa-handshake',
+                title: 'Collaboration',
+                description: 'Building strong partnerships with teams and clients through clear communication, mutual respect, and shared commitment to success.',
+                gradient: 'from-success to-emerald-600',
+                delay: '0.2s'
+              },
+              {
+                icon: 'fas fa-medal',
+                title: 'Excellence',
+                description: 'Committed to delivering high-quality code and exceptional user experiences that exceed expectations and set new industry standards.',
+                gradient: 'from-warning to-orange-500',
+                delay: '0.4s'
+              }
+            ].map((value, index) => (
+              <div 
+                key={value.title}
+                className={`text-center group transform hover:scale-105 transition-all duration-500 animate-fade-in-up`}
+                style={{ animationDelay: value.delay }}
+              >
+                <div className={`w-20 h-20 bg-gradient-to-br ${value.gradient} rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-all duration-300 animate-float shadow-lg group-hover:shadow-2xl cursor-pointer`}>
+                  <i className={`${value.icon} text-white text-2xl group-hover:animate-bounce`}></i>
+                </div>
+                <h4 className="text-2xl font-bold text-gray-900 mb-4 group-hover:text-primary transition-colors duration-300">
+                  {value.title}
+                </h4>
+                <p className="text-gray-600 leading-relaxed group-hover:text-gray-700 transition-colors duration-300">
+                  {value.description}
+                </p>
+                
+                {/* Animated progress indicator */}
+                <div className="mt-4 w-full bg-gray-200 rounded-full h-1 overflow-hidden">
+                  <div 
+                    className={`h-1 bg-gradient-to-r ${value.gradient} rounded-full transition-all duration-2000 ease-out`}
+                    style={{ 
+                      width: isVisible ? '100%' : '0%',
+                      animationDelay: `${1.5 + index * 0.3}s`
+                    }}
+                  ></div>
+                </div>
               </div>
-              <h4 className="text-xl font-bold text-gray-900 mb-4">Innovation</h4>
-              <p className="text-gray-600 leading-relaxed">
-                Constantly exploring new technologies and methodologies to deliver 
-                cutting-edge solutions that push boundaries and create value.
-              </p>
-            </div>
+            ))}
+          </div>
 
-            <div className="text-center group">
-              <div className="w-20 h-20 bg-gradient-to-br from-success to-emerald-600 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-all duration-300 animate-float animation-delay-500">
-                <i className="fas fa-handshake text-white text-2xl"></i>
-              </div>
-              <h4 className="text-xl font-bold text-gray-900 mb-4">Collaboration</h4>
-              <p className="text-gray-600 leading-relaxed">
-                Building strong partnerships with teams and clients through clear 
-                communication, mutual respect, and shared commitment to success.
+          {/* Additional Interactive Elements */}
+          <div className="mt-12 text-center">
+            <div className="bg-gradient-to-r from-primary/10 via-accent/10 to-purple-500/10 rounded-3xl p-8 transform hover:scale-105 transition-all duration-500 animate-fade-in-up animation-delay-1000">
+              <h4 className="text-2xl font-bold text-gray-900 mb-4 animate-pulse">
+                Let's Build Something Amazing Together!
+              </h4>
+              <p className="text-gray-600 mb-6 animate-fade-in-up animation-delay-1200">
+                Ready to turn your ideas into reality? I'm here to help you create exceptional digital experiences.
               </p>
-            </div>
-
-            <div className="text-center group">
-              <div className="w-20 h-20 bg-gradient-to-br from-warning to-orange-500 rounded-3xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-all duration-300 animate-float animation-delay-1000">
-                <i className="fas fa-medal text-white text-2xl"></i>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <button
+                  onClick={() => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })}
+                  className="bg-gradient-to-r from-primary to-accent text-white px-8 py-3 rounded-full font-semibold hover:shadow-xl hover:scale-105 transition-all duration-300 animate-fade-in-up animation-delay-1400 group"
+                >
+                  <i className="fas fa-rocket mr-2 group-hover:animate-bounce"></i>
+                  Start a Project
+                </button>
+                <button
+                  onClick={() => window.open('/resume.html', '_blank')}
+                  className="border-2 border-primary text-primary px-8 py-3 rounded-full font-semibold hover:bg-primary hover:text-white hover:scale-105 transition-all duration-300 animate-fade-in-up animation-delay-1600 group"
+                >
+                  <i className="fas fa-user mr-2 group-hover:animate-bounce"></i>
+                  View Resume
+                </button>
               </div>
-              <h4 className="text-xl font-bold text-gray-900 mb-4">Excellence</h4>
-              <p className="text-gray-600 leading-relaxed">
-                Committed to delivering high-quality code and exceptional user 
-                experiences that exceed expectations and set new industry standards.
-              </p>
             </div>
           </div>
         </div>

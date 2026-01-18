@@ -170,20 +170,6 @@ const Contact = () => {
             <h3 className="text-2xl font-bold text-gray-900 mb-6">Send Me a Message</h3>
             
             <form onSubmit={handleSubmit} className="space-y-4">
-              {/* Test Email Button */}
-              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-4">
-                <h4 className="text-sm font-semibold text-blue-800 mb-2">📧 Email Delivery Test</h4>
-                <p className="text-xs text-blue-600 mb-3">
-                  If you're not receiving emails, click this test button to send a direct email:
-                </p>
-                <a
-                  href={testEmailUrl}
-                  className="inline-flex items-center bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors duration-300"
-                >
-                  <i className="fas fa-envelope mr-2"></i>
-                  Send Test Email
-                </a>
-              </div>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">

@@ -1,149 +1,267 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 const Skills = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   const skillCategories = [
     {
       title: "Frontend",
-      icon: "fas fa-laptop-code",
+      icon: "fas fa-code",
+      iconColor: "text-cyan-400",
+      borderColor: "border-cyan-500/50",
+      glowColor: "shadow-cyan-500/20",
       skills: [
-        { name: "HTML5", level: 95, icon: "fab fa-html5", color: "bg-orange-500" },
-        { name: "CSS3", level: 90, icon: "fab fa-css3-alt", color: "bg-blue-500" },
-        { name: "JavaScript", level: 88, icon: "fab fa-js-square", color: "bg-yellow-500" },
-        { name: "React", level: 85, icon: "fab fa-react", color: "bg-cyan-500" },
-        { name: "Tailwind CSS", level: 90, icon: "fas fa-wind", color: "bg-teal-500" },
-        { name: "Bootstrap", level: 85, icon: "fab fa-bootstrap", color: "bg-purple-500" }
+        { 
+          name: "React", 
+          level: 90, 
+          icon: "fab fa-react", 
+          color: "from-cyan-400 to-blue-500",
+          bgColor: "bg-cyan-500/10"
+        },
+        { 
+          name: "JavaScript", 
+          level: 90, 
+          icon: "fab fa-js-square", 
+          color: "from-yellow-400 to-orange-500",
+          bgColor: "bg-yellow-500/10"
+        },
+        { 
+          name: "Tailwind", 
+          level: 95, 
+          icon: "fas fa-wind", 
+          color: "from-cyan-300 to-teal-500",
+          bgColor: "bg-cyan-500/10"
+        },
+        { 
+          name: "HTML/CSS", 
+          level: 88, 
+          icon: "fab fa-html5", 
+          color: "from-orange-400 to-red-500",
+          bgColor: "bg-orange-500/10"
+        }
       ]
     },
     {
       title: "Backend",
       icon: "fas fa-server",
+      iconColor: "text-green-400",
+      borderColor: "border-green-500/50",
+      glowColor: "shadow-green-500/20",
       skills: [
-        { name: "Node.js", level: 80, icon: "fab fa-node-js", color: "bg-green-600" },
-        { name: "Express.js", level: 78, icon: "fas fa-code", color: "bg-gray-600" },
-        { name: "PHP", level: 75, icon: "fab fa-php", color: "bg-indigo-600" },
-        { name: "Laravel", level: 70, icon: "fab fa-laravel", color: "bg-red-500" }
+        { 
+          name: "Node.js", 
+          level: 88, 
+          icon: "fab fa-node-js", 
+          color: "from-green-400 to-emerald-500",
+          bgColor: "bg-green-500/10"
+        },
+        { 
+          name: "MongoDB", 
+          level: 90, 
+          icon: "fas fa-leaf", 
+          color: "from-green-400 to-green-600",
+          bgColor: "bg-green-500/10"
+        },
+        { 
+          name: "Express.js", 
+          level: 88, 
+          icon: "fas fa-code", 
+          color: "from-gray-400 to-gray-600",
+          bgColor: "bg-gray-500/10"
+        },
+        { 
+          name: "Rest Api", 
+          level: 90, 
+          icon: "fas fa-plug", 
+          color: "from-green-300 to-green-500",
+          bgColor: "bg-green-500/10"
+        }
       ]
     },
     {
-      title: "Database",
-      icon: "fas fa-database",
-      skills: [
-        { name: "MongoDB", level: 80, icon: "fas fa-leaf", color: "bg-green-500" },
-        { name: "MySQL", level: 75, icon: "fas fa-database", color: "bg-blue-600" }
-      ]
-    },
-    {
-      title: "Tools & Others",
+      title: "Tools",
       icon: "fas fa-tools",
+      iconColor: "text-orange-400",
+      borderColor: "border-orange-500/50",
+      glowColor: "shadow-orange-500/20",
       skills: [
-        { name: "Git", level: 85, icon: "fab fa-git-alt", color: "bg-orange-600" },
-        { name: "GitHub", level: 85, icon: "fab fa-github", color: "bg-gray-800" },
-        { name: "VS Code", level: 90, icon: "fas fa-code", color: "bg-blue-600" }
+        { 
+          name: "Git", 
+          level: 90, 
+          icon: "fab fa-git-alt", 
+          color: "from-red-400 to-red-600",
+          bgColor: "bg-red-500/10"
+        },
+        { 
+          name: "VS Code", 
+          level: 93, 
+          icon: "fas fa-code", 
+          color: "from-blue-400 to-blue-600",
+          bgColor: "bg-blue-500/10"
+        },
+        { 
+          name: "Figma", 
+          level: 95, 
+          icon: "fab fa-figma", 
+          color: "from-purple-400 to-pink-500",
+          bgColor: "bg-purple-500/10"
+        },
+        { 
+          name: "Postman", 
+          level: 90, 
+          icon: "fas fa-paper-plane", 
+          color: "from-orange-400 to-red-500",
+          bgColor: "bg-orange-500/10"
+        }
       ]
     }
   ];
 
   return (
-    <section id="skills" className="py-4 bg-gradient-to-br from-white via-slate-50 to-blue-50/50 relative overflow-hidden">
-      {/* Background Decorative Elements */}
-      <div className="absolute inset-0 opacity-5">
-        <div className="absolute top-10 right-10 w-72 h-72 bg-accent rounded-full blur-3xl animate-pulse animation-delay-1000"></div>
-        <div className="absolute bottom-10 left-10 w-64 h-64 bg-success rounded-full blur-3xl animate-pulse animation-delay-3000"></div>
+    <section 
+      ref={sectionRef}
+      id="skills" 
+      className="py-12 bg-gradient-to-br from-gray-900 via-slate-900 to-black relative overflow-hidden"
+    >
+      {/* Background Effects */}
+      <div className="absolute inset-0 opacity-20">
+        <div className="absolute top-20 left-10 w-96 h-96 bg-cyan-500 rounded-full blur-3xl animate-pulse animation-delay-1000"></div>
+        <div className="absolute bottom-20 right-10 w-80 h-80 bg-green-500 rounded-full blur-3xl animate-pulse animation-delay-3000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-orange-500 rounded-full blur-3xl animate-pulse animation-delay-5000"></div>
       </div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl font-bold text-gray-900 mb-2">My Skills</h2>
-          <div className="w-24 h-1 bg-primary mx-auto mb-2"></div>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Here are the technologies and tools I work with to bring ideas to life
+        {/* Header */}
+        <div className={`text-center mb-16 transition-all duration-1000 ${isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-10'}`}>
+          <h2 className="text-5xl font-bold text-white mb-4">
+            My <span className="bg-gradient-to-r from-cyan-400 via-green-400 to-orange-400 bg-clip-text text-transparent">Skills</span>
+          </h2>
+          <div className="w-32 h-1 bg-gradient-to-r from-cyan-400 via-green-400 to-orange-400 mx-auto mb-6"></div>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+            Technologies and tools I use to build amazing digital experiences
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        {/* Skills Grid */}
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {skillCategories.map((category, categoryIndex) => (
-            <div key={categoryIndex} className="bg-gray-50 rounded-2xl p-8 card-hover">
-              <div className="flex items-center mb-6">
-                <div className="w-12 h-12 bg-primary rounded-lg flex items-center justify-center mr-4">
-                  <i className={`${category.icon} text-white text-xl`}></i>
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900">{category.title}</h3>
-              </div>
-
-              <div className="space-y-4">
-                {category.skills.map((skill, skillIndex) => (
-                  <div key={skillIndex} className="skill-item">
-                    <div className="flex items-center justify-between mb-2">
-                      <div className="flex items-center">
-                        <i className={`${skill.icon} text-xl mr-3 text-gray-700`}></i>
-                        <span className="font-semibold text-gray-800">{skill.name}</span>
-                      </div>
-                      <span className="text-sm font-medium text-gray-600">{skill.level}%</span>
-                    </div>
-                    
-                    <div className="w-full bg-gray-200 rounded-full h-3 overflow-hidden">
-                      <div 
-                        className={`h-full ${skill.color} rounded-full transition-all duration-1000 ease-out`}
-                        style={{ 
-                          width: `${skill.level}%`,
-                          animation: `slideIn 1.5s ease-out ${skillIndex * 0.1}s both`
-                        }}
-                      ></div>
-                    </div>
+            <div 
+              key={categoryIndex} 
+              className={`transition-all duration-700 ${isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-10'}`}
+              style={{ animationDelay: `${categoryIndex * 0.2}s` }}
+            >
+              {/* Category Card */}
+              <div className={`bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 border ${category.borderColor} shadow-2xl ${category.glowColor} hover:shadow-3xl transition-all duration-500 transform hover:scale-105 group`}>
+                
+                {/* Category Header */}
+                <div className="flex items-center mb-8">
+                  <div className={`w-8 h-8 ${category.iconColor} mr-3 group-hover:animate-pulse`}>
+                    <i className={`${category.icon} text-2xl`}></i>
                   </div>
-                ))}
+                  <h3 className="text-2xl font-bold text-white group-hover:text-cyan-400 transition-colors duration-300">
+                    {category.title}
+                  </h3>
+                </div>
+
+                {/* Skills List */}
+                <div className="space-y-6">
+                  {category.skills.map((skill, skillIndex) => (
+                    <div key={skillIndex} className="group/skill">
+                      {/* Skill Item */}
+                      <div className={`${skill.bgColor} rounded-xl p-4 border border-gray-700/50 hover:border-gray-600 transition-all duration-300 hover:shadow-lg`}>
+                        
+                        {/* Skill Header */}
+                        <div className="flex items-center justify-between mb-3">
+                          <div className="flex items-center">
+                            <i className={`${skill.icon} text-lg mr-3 text-gray-300 group-hover/skill:text-white transition-colors duration-300`}></i>
+                            <span className="font-semibold text-gray-200 group-hover/skill:text-white transition-colors duration-300">
+                              {skill.name}
+                            </span>
+                          </div>
+                          <span className="text-lg font-bold text-gray-300 group-hover/skill:text-white transition-colors duration-300">
+                            {skill.level}%
+                          </span>
+                        </div>
+                        
+                        {/* Progress Bar */}
+                        <div className="relative">
+                          <div className="w-full bg-gray-700/50 rounded-full h-2 overflow-hidden">
+                            <div 
+                              className={`h-full bg-gradient-to-r ${skill.color} rounded-full transition-all duration-1500 ease-out relative overflow-hidden shadow-lg`}
+                              style={{ 
+                                width: isVisible ? `${skill.level}%` : '0%',
+                                animationDelay: `${1 + skillIndex * 0.2}s`
+                              }}
+                            >
+                              {/* Glow Effect */}
+                              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer"></div>
+                            </div>
+                          </div>
+                          
+                          {/* Progress Indicator Dot */}
+                          <div 
+                            className="absolute top-0 w-2 h-2 bg-white rounded-full shadow-lg transform -translate-y-0 transition-all duration-1500 ease-out"
+                            style={{ 
+                              left: isVisible ? `calc(${skill.level}% - 4px)` : '-4px',
+                              animationDelay: `${1 + skillIndex * 0.2}s`
+                            }}
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
           ))}
         </div>
 
-        {/* Additional Skills Summary */}
-        <div className="mt-12 text-center">
-          <div className="bg-gradient-to-r from-primary to-accent rounded-2xl p-8 text-white">
-            <h3 className="text-2xl font-bold mb-4">What Makes Me Different</h3>
-            <p className="text-lg mb-6 max-w-3xl mx-auto">
-              Creativity combined with technical skills helps me build interfaces that are both beautiful and functional. 
-              I focus on writing clean, maintainable code and creating exceptional user experiences.
+        {/* Bottom Section */}
+        <div className={`mt-16 text-center transition-all duration-1000 ${isVisible ? 'animate-fade-in-up animation-delay-800' : 'opacity-0 translate-y-10'}`}>
+          <div className="bg-gradient-to-r from-gray-800/80 to-gray-900/80 backdrop-blur-sm rounded-3xl p-8 border border-gray-700/50 shadow-2xl">
+            <h4 className="text-3xl font-bold text-white mb-4">
+              Ready to Build Something <span className="bg-gradient-to-r from-cyan-400 to-green-400 bg-clip-text text-transparent">Amazing</span>?
+            </h4>
+            <p className="text-gray-300 mb-8 max-w-2xl mx-auto text-lg">
+              Let's collaborate and turn your ideas into reality with modern technology and innovative solutions.
             </p>
-            
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
-              <div className="text-center">
-                <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <i className="fas fa-paint-brush text-2xl"></i>
-                </div>
-                <h4 className="font-semibold mb-2">Creative Design</h4>
-                <p className="text-sm opacity-90">Beautiful and intuitive user interfaces</p>
-              </div>
-              
-              <div className="text-center">
-                <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <i className="fas fa-code text-2xl"></i>
-                </div>
-                <h4 className="font-semibold mb-2">Clean Code</h4>
-                <p className="text-sm opacity-90">Maintainable and scalable solutions</p>
-              </div>
-              
-              <div className="text-center">
-                <div className="w-16 h-16 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-3">
-                  <i className="fas fa-rocket text-2xl"></i>
-                </div>
-                <h4 className="font-semibold mb-2">Performance</h4>
-                <p className="text-sm opacity-90">Fast and optimized applications</p>
-              </div>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button
+                onClick={() => document.getElementById('contact').scrollIntoView({ behavior: 'smooth' })}
+                className="bg-gradient-to-r from-cyan-500 to-blue-600 text-white px-8 py-3 rounded-full font-semibold hover:shadow-xl hover:shadow-cyan-500/25 hover:scale-105 transition-all duration-300 group"
+              >
+                <i className="fas fa-rocket mr-2 group-hover:animate-bounce"></i>
+                Start Project
+              </button>
+              <button
+                onClick={() => window.open('/resume.html', '_blank')}
+                className="border-2 border-cyan-400 text-cyan-400 px-8 py-3 rounded-full font-semibold hover:bg-cyan-400 hover:text-gray-900 hover:scale-105 transition-all duration-300 group"
+              >
+                <i className="fas fa-download mr-2 group-hover:animate-bounce"></i>
+                View Resume
+              </button>
             </div>
           </div>
         </div>
       </div>
-
-      <style jsx>{`
-        @keyframes slideIn {
-          from {
-            width: 0%;
-          }
-          to {
-            width: var(--target-width);
-          }
-        }
-      `}</style>
     </section>
   );
 };
