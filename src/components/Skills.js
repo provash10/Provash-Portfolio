@@ -160,78 +160,26 @@ const Skills = () => {
           </p>
         </div>
 
-        {/* Skills Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {skillCategories.map((category, categoryIndex) => (
-            <div 
-              key={categoryIndex} 
-              className={`transition-all duration-700 ${isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-10'}`}
-              style={{ animationDelay: `${categoryIndex * 0.2}s` }}
-            >
-              {/* Category Card */}
-              <div className={`bg-gray-800/50 backdrop-blur-sm rounded-2xl p-6 border ${category.borderColor} shadow-2xl ${category.glowColor} hover:shadow-3xl transition-all duration-500 transform hover:scale-105 group`}>
-                
-                {/* Category Header */}
-                <div className="flex items-center mb-8">
-                  <div className={`w-8 h-8 ${category.iconColor} mr-3 group-hover:animate-pulse`}>
-                    <i className={`${category.icon} text-2xl`}></i>
+        {/* Skills Grid - 4 boxes per row */}
+        <div className={`grid grid-cols-2 md:grid-cols-4 gap-6 transition-all duration-1000 ${isVisible ? 'animate-fade-in-up' : 'opacity-0 translate-y-10'}`}>
+          {skillCategories.flatMap(category => 
+            category.skills.map((skill, index) => (
+              <div 
+                key={`${category.title}-${skill.name}`}
+                className={`${skill.bgColor} rounded-2xl p-6 border border-gray-700/50 hover:border-gray-600 transition-all duration-300 hover:shadow-xl hover:scale-105 group cursor-pointer`}
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                <div className="text-center">
+                  <div className="mb-4">
+                    <i className={`${skill.icon} text-4xl text-gray-300 group-hover:text-white transition-colors duration-300`}></i>
                   </div>
-                  <h3 className="text-2xl font-bold text-white group-hover:text-cyan-400 transition-colors duration-300">
-                    {category.title}
-                  </h3>
-                </div>
-
-                {/* Skills List */}
-                <div className="space-y-6">
-                  {category.skills.map((skill, skillIndex) => (
-                    <div key={skillIndex} className="group/skill">
-                      {/* Skill Item */}
-                      <div className={`${skill.bgColor} rounded-xl p-4 border border-gray-700/50 hover:border-gray-600 transition-all duration-300 hover:shadow-lg`}>
-                        
-                        {/* Skill Header */}
-                        <div className="flex items-center justify-between mb-3">
-                          <div className="flex items-center">
-                            <i className={`${skill.icon} text-lg mr-3 text-gray-300 group-hover/skill:text-white transition-colors duration-300`}></i>
-                            <span className="font-semibold text-gray-200 group-hover/skill:text-white transition-colors duration-300">
-                              {skill.name}
-                            </span>
-                          </div>
-                          <span className="text-lg font-bold text-gray-300 group-hover/skill:text-white transition-colors duration-300">
-                            {skill.level}%
-                          </span>
-                        </div>
-                        
-                        {/* Progress Bar */}
-                        <div className="relative">
-                          <div className="w-full bg-gray-700/50 rounded-full h-2 overflow-hidden">
-                            <div 
-                              className={`h-full bg-gradient-to-r ${skill.color} rounded-full transition-all duration-1500 ease-out relative overflow-hidden shadow-lg`}
-                              style={{ 
-                                width: isVisible ? `${skill.level}%` : '0%',
-                                animationDelay: `${1 + skillIndex * 0.2}s`
-                              }}
-                            >
-                              {/* Glow Effect */}
-                              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent animate-shimmer"></div>
-                            </div>
-                          </div>
-                          
-                          {/* Progress Indicator Dot */}
-                          <div 
-                            className="absolute top-0 w-2 h-2 bg-white rounded-full shadow-lg transform -translate-y-0 transition-all duration-1500 ease-out"
-                            style={{ 
-                              left: isVisible ? `calc(${skill.level}% - 4px)` : '-4px',
-                              animationDelay: `${1 + skillIndex * 0.2}s`
-                            }}
-                          ></div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
+                  <h4 className="font-semibold text-lg text-gray-200 group-hover:text-white transition-colors duration-300">
+                    {skill.name}
+                  </h4>
                 </div>
               </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
 
         {/* Bottom Section */}

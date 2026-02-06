@@ -101,37 +101,15 @@ const About = () => {
                 <div className="absolute -top-20 -right-20 w-40 h-40 bg-gradient-to-br from-primary/20 to-accent/20 rounded-full blur-3xl animate-pulse"></div>
                 <div className="absolute -bottom-10 -left-10 w-32 h-32 bg-gradient-to-tr from-purple-500/20 to-pink-500/20 rounded-full blur-2xl animate-pulse animation-delay-1000"></div>
                 
-                {/* Profile Image Section - Keep unchanged but add hover effects */}
-                <div className="relative mb-8 group">
-                  <div className="relative mx-auto w-64 h-64">
-                    {/* Enhanced Animated Border Ring */}
-                    <div className="absolute inset-0 rounded-full bg-gradient-to-r from-primary via-accent to-purple-500 animate-spin-slow p-1 group-hover:animate-pulse">
-                      <div className="w-full h-full rounded-full bg-white p-2">
-                        <div className="w-full h-full rounded-full overflow-hidden animate-float group-hover:scale-110 transition-transform duration-500">
-                          <ProfileImage 
-                            src={profileImg}
-                            alt="Provash Chandra Barman - Full Stack Developer"
-                            className="w-full h-full object-cover"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    
-                    {/* Enhanced Floating Tech Badges */}
-                    <div className="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center shadow-lg animate-bounce animation-delay-1000 hover:scale-125 transition-transform duration-300 cursor-pointer">
-                      <i className="fab fa-react text-white text-2xl animate-spin-slow"></i>
-                    </div>
-                    <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center shadow-lg animate-bounce animation-delay-1500 hover:scale-125 transition-transform duration-300 cursor-pointer">
-                      <i className="fab fa-node-js text-white text-2xl animate-pulse"></i>
-                    </div>
-                    <div className="absolute top-1/2 -right-6 w-12 h-12 bg-gradient-to-br from-yellow-500 to-orange-500 rounded-xl flex items-center justify-center shadow-lg animate-bounce animation-delay-2000 hover:scale-125 transition-transform duration-300 cursor-pointer">
-                      <i className="fab fa-js-square text-white text-lg animate-pulse animation-delay-500"></i>
-                    </div>
-                    
-                    {/* Enhanced Status Indicator */}
-                    <div className="absolute top-4 right-4 flex items-center bg-green-500 text-white px-3 py-1 rounded-full text-sm font-medium shadow-lg animate-pulse hover:bg-green-600 transition-colors duration-300">
-                      <div className="w-2 h-2 bg-white rounded-full mr-2 animate-ping"></div>
-                      Available for Work
+                {/* Profile Image Section - No rotation */}
+                <div className="relative mb-8">
+                  <div className="relative mx-auto w-48 h-48">
+                    <div className="w-full h-full rounded-full overflow-hidden border-4 border-primary shadow-lg">
+                      <ProfileImage 
+                        src={profileImg}
+                        alt="Provash Chandra Barman - Full Stack Developer"
+                        className="w-full h-full object-cover"
+                      />
                     </div>
                   </div>
                 </div>
@@ -263,64 +241,7 @@ const About = () => {
               </div>
             </div>
 
-            {/* Enhanced Technical Expertise with Skills Progress */}
-            <div className={`bg-white rounded-3xl shadow-xl p-8 relative overflow-hidden transform hover:scale-105 transition-all duration-500 hover:shadow-2xl ${activeCard === 1 ? 'ring-4 ring-green-200' : ''}`}>
-              <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-green-500/5 to-blue-500/5 rounded-full -translate-y-12 translate-x-12 animate-pulse animation-delay-1000"></div>
-              <div className="flex items-center mb-6 animate-fade-in-up animation-delay-200">
-                <div className="w-12 h-12 bg-gradient-to-br from-green-500 to-blue-500 rounded-2xl flex items-center justify-center mr-4 animate-bounce animation-delay-500">
-                  <i className="fas fa-cogs text-white text-lg animate-spin-slow"></i>
-                </div>
-                <h3 className="text-2xl font-bold text-gray-900">Technical Expertise</h3>
-              </div>
-              <p className="text-gray-700 leading-relaxed mb-6 animate-fade-in-up animation-delay-400">
-                My technical journey encompasses modern web development practices, from crafting 
-                responsive frontends with <span className="text-blue-500 font-semibold animate-pulse">React</span> and <span className="text-cyan-500 font-semibold animate-pulse animation-delay-200">Tailwind CSS</span> to building robust backend 
-                systems with <span className="text-green-500 font-semibold animate-pulse animation-delay-400">Node.js</span> and <span className="text-gray-700 font-semibold animate-pulse animation-delay-600">Express</span>. I excel in database design, API development, 
-                and implementing secure authentication systems.
-              </p>
-              
-              {/* Animated Skills Progress Bars */}
-              <div className="space-y-4 mb-6">
-                {skills.map((skill, index) => (
-                  <div key={skill.name} className="animate-fade-in-up" style={{ animationDelay: `${0.6 + index * 0.1}s` }}>
-                    <div className="flex justify-between items-center mb-2">
-                      <div className="flex items-center">
-                        <i className={`${skill.icon} text-lg mr-2 animate-pulse`} style={{ animationDelay: `${index * 0.2}s` }}></i>
-                        <span className="font-medium text-gray-800">{skill.name}</span>
-                      </div>
-                      <span className="text-sm text-gray-600 font-semibold">{skill.level}%</span>
-                    </div>
-                    <div className="w-full bg-gray-200 rounded-full h-2 overflow-hidden">
-                      <div 
-                        className={`h-2 bg-gradient-to-r ${skill.color} rounded-full transition-all duration-2000 ease-out animate-scale-x`}
-                        style={{ 
-                          width: isVisible ? `${skill.level}%` : '0%',
-                          animationDelay: `${1 + index * 0.2}s`
-                        }}
-                      ></div>
-                    </div>
-                  </div>
-                ))}
-              </div>
 
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                {[
-                  { icon: 'fab fa-react', color: 'blue', label: 'Frontend' },
-                  { icon: 'fas fa-server', color: 'green', label: 'Backend' },
-                  { icon: 'fas fa-database', color: 'purple', label: 'Database' },
-                  { icon: 'fas fa-tools', color: 'orange', label: 'DevTools' }
-                ].map((item, index) => (
-                  <div 
-                    key={item.label}
-                    className={`text-center p-4 bg-${item.color}-50 rounded-2xl hover:bg-${item.color}-100 transition-all duration-300 transform hover:scale-110 animate-fade-in-up cursor-pointer group`}
-                    style={{ animationDelay: `${1.2 + index * 0.1}s` }}
-                  >
-                    <i className={`${item.icon} text-${item.color}-500 text-2xl mb-2 group-hover:animate-bounce`}></i>
-                    <div className="font-medium text-gray-800">{item.label}</div>
-                  </div>
-                ))}
-              </div>
-            </div>
 
             {/* Enhanced Vision & Goals */}
             <div className={`bg-white rounded-3xl shadow-xl p-8 relative overflow-hidden transform hover:scale-105 transition-all duration-500 hover:shadow-2xl ${activeCard === 2 ? 'ring-4 ring-purple-200' : ''}`}>

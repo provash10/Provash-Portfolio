@@ -8,9 +8,6 @@ const Contact = () => {
     message: ''
   });
 
-  // Generate test email URL
-  const testEmailUrl = `mailto:provash20cb@gmail.com?subject=${encodeURIComponent('TEST EMAIL from Portfolio')}&body=${encodeURIComponent(`This is a test email to check if provash20cb@gmail.com is receiving emails.\n\nFrom: Portfolio Contact Form\nTime: ${new Date().toLocaleString()}`)}`;
-
   const handleChange = (e) => {
     setFormData({
       ...formData,
